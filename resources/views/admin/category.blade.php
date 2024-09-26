@@ -14,7 +14,6 @@
     .div_deg {
       display: flex;
       justify-content: center;
-      align-items: center;
       margin: 40px;
     }
 
@@ -61,7 +60,7 @@
 
         <div class="div_deg">
 
-          <form action="{{url('add_category')}}" method="post">
+          <form action="{{url('add_category')}}" method="post" onsubmit="return validateForm(event)">
 
             @csrf
 
@@ -82,6 +81,12 @@
               <th>
                 Category Name
               </th>
+              <th>
+                Delete
+              </th>
+              <th>
+                Edit
+              </th>
             </tr>
 
             @foreach($data as $data)
@@ -89,14 +94,18 @@
               <td>
                 {{$data->category_name}}
               </td>
-            </tr>
-            @endforeach
 
-            <tr>
               <td>
-                Sports
+                <a class="btn btn-success" href="{{url('edit_category', $data->id )}}">Edit</a>
+              </td>
+
+              <td>
+                <a class="btn btn-danger" data-category="{{$data->category_name}}" onclick="confirmation(event)" href="{{url('delete_category', $data->id )}}">Delete</a>
               </td>
             </tr>
+
+            @endforeach
+
           </table>
         </div>
 
@@ -104,6 +113,55 @@
     </div>
   </div>
   <!-- JavaScript files-->
+
+  <script>
+    function validateForm(event) {
+
+      var category = document.getElementsByName('category')[0].value;
+      if (category == '') {
+        swal("Oops!", "Please Enter Category Name", "error");
+        return false;
+      }
+
+      swal("Nice!", "Your Category has been added", "success");
+      return true;
+
+    }
+  </script>
+
+  <script type="text/javascript">
+    function confirmation(ev) {
+      ev.preventDefault();
+      var urlToRedirect = ev.currentTarget.getAttribute('href');
+      var category_name = ev.currentTarget.getAttribute('data-category');
+
+      swal({
+          title: "Are you sure you want to delete " + category_name + "?",
+          text: "Once deleted, It will be gone forever!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+
+        .then((willDelete) => {
+          if (willDelete) {
+            swal("Your " + category_name + " category has been deleted!", {
+                icon: "success",
+              })
+              .then(() => {
+                window.location.href = urlToRedirect;
+              })
+          } else {
+            swal("Hoof! Your " + category_name + " category is safe!", {
+              icon: "info",
+            });
+          }
+        })
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
   <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
