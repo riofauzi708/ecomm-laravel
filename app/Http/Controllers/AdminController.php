@@ -20,8 +20,35 @@ class AdminController extends Controller
         $category->category_name = $request->category;
         $category->save();
 
-        toastr()->timeOut(10000)->closeButton()->success('Category Added Successfully');
+        toastr()->timeOut(5000)->closeButton()->success('Category Added Successfully');
 
         return redirect()->back();
+    }
+
+    public function delete_category($id)
+    {
+        $data = Category::find($id);
+        $data->delete();
+
+        toastr()->timeOut(5000)->closeButton()->success('Category Deleted Successfully');
+
+        return redirect()->back();
+    }
+
+    public function edit_category($id)
+    {
+        $data = Category::find($id);
+        return view('admin.edit_category', compact('data'));
+    }
+
+    public function update_category(Request $request, $id)
+    {
+        $data = Category::find($id);
+        $data->category_name = $request->category;
+        $data->save();
+
+        toastr()->timeOut(5000)->closeButton()->success('Category has been Updated');
+
+        return redirect('/view_category')->with('message', 'Category Updated Successfully');
     }
 }
