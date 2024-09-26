@@ -14,7 +14,6 @@
     .div_deg {
       display: flex;
       justify-content: center;
-      align-items: center;
       margin: 40px;
     }
 
@@ -61,7 +60,7 @@
 
         <div class="div_deg">
 
-          <form action="{{url('add_category')}}" method="post">
+          <form action="{{url('add_category')}}" method="post" onsubmit="return validateForm(event)">
 
             @csrf
 
@@ -114,6 +113,21 @@
     </div>
   </div>
   <!-- JavaScript files-->
+
+  <script>
+    function validateForm(event) {
+
+      var category = document.getElementsByName('category')[0].value;
+      if (category == '') {
+        swal("Oops!", "Please Enter Category Name", "error");
+        return false;
+      }
+
+      swal("Nice!", "Your Category has been added", "success");
+      return true;
+
+    }
+  </script>
 
   <script type="text/javascript">
     function confirmation(ev) {
