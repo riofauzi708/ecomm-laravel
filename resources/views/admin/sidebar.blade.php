@@ -23,7 +23,7 @@
         </a>
       </li>
 
-      <li class="{{ request()->is('add_product*') ? 'active' : '' }}">
+      <li class="{{ request()->is('add_product*') ? 'active' : '' }}, {{ request()->is('view_product*') ? 'active' : '' }}">
         <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse">
           <i class="icon-windows"></i> Products
         </a>
@@ -31,8 +31,9 @@
           <li class="{{ request()->is('add_product') ? 'active' : '' }}">
             <a href="{{url('add_product')}}">Add Product</a>
           </li>
-          <li><a href="#">Page</a></li>
-          <li><a href="#">Page</a></li>
+          <li class="{{ request()->is('view_product') ? 'active' : '' }}">
+            <a href="{{url('view_product')}}">View Product</a>
+          </li>
         </ul>
       </li>
     </ul>

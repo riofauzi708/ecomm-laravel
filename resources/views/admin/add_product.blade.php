@@ -53,7 +53,7 @@
                 </h1>
 
                 <div class="div_deg">
-                    <form action="{{url('upload_product')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('upload_product')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(event)">
 
                         @csrf
 
@@ -81,7 +81,7 @@
 
                         <div class="input_deg">
                             <Label>Product Category</Label>
-                            <select name="category" required>
+                            <select name="category">
                                 <option value="">Select a Category</option>
 
                                 @foreach($category as $category)
@@ -105,7 +105,52 @@
             </div>
         </div>
     </div>
+
+    <!-- SweetAlert CDN -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- JavaScript files-->
+    <script>
+        function validateForm(event) {
+
+            var title = document.getElementsByName('title')[0].value;
+            var description = document.getElementsByName('description')[0].value;
+            var price = document.getElementsByName('price')[0].value;
+            var stock = document.getElementsByName('stock')[0].value;
+            var category = document.getElementsByName('category')[0].value;
+            var image = document.getElementsByName('image')[0].value;
+
+            if (title === '') {
+                swal("Oops!", "Please Enter Product Title", "error");
+                return false;
+            }
+            if (description === '') {
+                swal("Oops!", "Please Enter Product Description", "error");
+                return false;
+            }
+            if (price === '') {
+                swal("Oops!", "Please Enter Product Price", "error");
+                return false;
+            }
+            if (stock === '') {
+                swal("Oops!", "Please Enter Product Stock", "error");
+                return false;
+            }
+            if (category === '') {
+                swal("Oops!", "Please Enter Product Category", "error");
+                return false;
+            }
+            if (image === '') {
+                swal("Oops!", "Please Enter Product Image", "error");
+                return false;
+            }
+
+            swal("Nice!", "Your Product has been added", "success");
+            return true;
+        }
+    </script>
+
+
     <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
     <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
