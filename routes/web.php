@@ -47,3 +47,15 @@ route::get('search_product', [AdminController::class, 'search_product'])->middle
 route::get('product_details/{id}', [HomeController::class, 'product_details']);
 
 route::get('add_to_cart/{id}', [HomeController::class, 'add_to_cart'])->middleware(['auth', 'verified']);
+
+route::get('my_cart', [HomeController::class, 'my_cart'])->middleware(['auth', 'verified']);
+
+route::delete('/cart_remove/{id}', [HomeController::class, 'cart_remove'])->middleware(['auth', 'verified']);
+
+route::post('/place_order', [HomeController::class, 'place_order'])->middleware(['auth', 'verified']);
+
+//Route header
+route::get('/shop', [HomeController::class, 'shop']);
+route::get('/why', [HomeController::class, 'why']);
+route::get('/testi', [HomeController::class, 'testi']);
+route::get('/contact', [HomeController::class, 'contact']);

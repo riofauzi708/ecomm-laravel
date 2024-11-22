@@ -57,3 +57,61 @@
 
   </div>
 </section>
+
+<style>
+  /* General Styling */
+  .shop_section {
+    background-color: #f9f9f9;
+  }
+
+  .box {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Image Hover Zoom Effect */
+  .img-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .img-box img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Product Title */
+  .product-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  /* Button Styling */
+  .btn-md {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  .btn-md:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .box {
+      padding: 10px;
+    }
+
+    .btn-md {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+</style>

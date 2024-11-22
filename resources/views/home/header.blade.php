@@ -9,20 +9,20 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Shop</a>
+        <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('/shop') }}">Shop</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Why Us</a>
+        <li class="nav-item {{ Request::is('why') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('/why') }}">Why Us</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Testimonial</a>
+        <li class="nav-item {{ Request::is('testi') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('/testi') }}">Testimonial</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact Us</a>
+        <li class="nav-item {{ Request::is('contact') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('/contact') }}">Contact Us</a>
         </li>
       </ul>
       <div class="user_option">
@@ -48,14 +48,19 @@
         @endauth
         @endif
 
-        <a href=""
+        <a href="{{ url('my_cart') }}"
           style="display: inline-flex; align-items: center; text-decoration: none; color: black; transition: background-color 0.3s, color 0.3s; padding: 5px 10px; border-radius: 5px; position: relative;">
-          <i class="fa fa-cart-plus fa-lg"
+          <i class="fa fa-cart-plus fa-2x"
             style="transition: transform 0.3s; color: black;"
             aria-hidden="true"
             onmouseover="this.style.transform='scale(1.2)'; this.style.color='black';"
             onmouseout="this.style.transform='scale(1)'; this.style.color='black';"></i>
-          <span style="margin-left: 8px; font-size: 1.2rem; font-weight: bold; background: #dc3545; color: white; border-radius: 50%; padding: 2px 6px; position: absolute; top: -5px; right: -10px;">{{ $count }}</span>
+
+          @auth
+          <span style="font-size: 1rem; font-weight: bold; background: #dc3545; color: white; border-radius: 100%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; position: absolute; top: -4px; right: -1px;">
+            {{ $count }}
+          </span>
+          @endauth
         </a>
 
         <form class="form-inline">
@@ -69,109 +74,111 @@
   </nav>
 </header>
 
+
 <style>
-  /* Hover Effects */
+  /* Navbar hover effects */
   .navbar-nav .nav-link {
     position: relative;
-    transition: color 0.3s, background-color 0.3s;
     padding: 8px 16px;
-    /* Padding for hover effect */
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    /* Smooth transitions */
   }
 
   .navbar-nav .nav-link:hover {
     color: black;
-    /* Change text color to black */
     background-color: white;
-    /* Change background color to white */
-    border-radius: 5px;
-    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add subtle shadow */
   }
 
+  /* User icons hover effects */
   .user_option a {
-    transition: color 0.3s, transform 0.3s;
-    /* Added transform for scaling */
+    transition: all 0.3s ease-in-out;
+    /* Include all for smooth transitions */
   }
 
   .user_option a:hover {
-    color: black;
-    /* Keep icon color black on hover */
+    color: #dc3545;
     transform: scale(1.1);
-    /* Slightly increase size */
   }
 
-  /* Hover effects for user icons */
+  /* Icon-specific hover effects */
   .user_option a i {
-    transition: color 0.3s, transform 0.3s;
-    /* Add transition for scaling */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 
   .user_option a i:hover {
     color: #dc3545;
-    /* Change color on hover */
-    transform: scale(1.1);
-    /* Slightly increase size */
+    transform: scale(1.15);
+    /* Slightly larger scale */
   }
 
-  /* Hover effects for cart icon */
+  /* Cart icon hover effect */
   .fa-cart-plus:hover {
     color: #dc3545;
-    /* Change color on hover */
-    transform: scale(1.1);
-    /* Slightly increase size */
+    transform: scale(1.15);
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 
-  /* Style for the logout button */
+  /* Logout button styling */
   .user_option form x-dropdown-link {
-    transition: background-color 0.3s, color 0.3s, transform 0.3s, border 0.3s;
-    /* Add transition */
-    padding: 8px 16px;
-    /* Consistent padding */
     display: inline-flex;
-    /* Flex for alignment */
     align-items: center;
-    /* Center icons and text */
+    padding: 8px 16px;
     border: 2px solid transparent;
-    /* Add a border for better visibility */
     border-radius: 5px;
-    /* Rounded corners */
     color: black;
-    /* Default text color */
+    transition: all 0.3s ease-in-out;
   }
 
-  /* Logout hover effects */
   .user_option form x-dropdown-link:hover {
     background-color: #dc3545;
-    /* Change background color on hover */
     color: white;
-    /* Change text color to white on hover */
-    border: 2px solid white;
-    /* Change border color to white on hover */
+    border-color: white;
     transform: scale(1.05);
-    /* Slightly increase size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  /* Style for login and register links */
+  /* Login and register links */
   .user_option a {
     color: black;
-    /* Default color */
-    transition: color 0.3s;
-    /* Smooth color transition */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
   }
 
   .user_option a:hover {
     color: #dc3545;
-    /* Change color on hover */
+    text-decoration: underline;
   }
 
-  /* Style for the search button */
+  /* Search button hover effect */
+  .nav_search-btn {
+    transition: all 0.3s ease-in-out;
+  }
+
   .nav_search-btn:hover {
     background-color: white;
-    /* Background color on hover */
     color: black;
-    /* Icon color on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Shadow effect */
     transform: scale(1.1);
-    /* Slightly increase size */
+  }
+
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .navbar-nav .nav-link {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    .user_option a,
+    .user_option form x-dropdown-link {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+
+    .nav_search-btn {
+      padding: 8px;
+    }
   }
 </style>
