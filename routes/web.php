@@ -8,9 +8,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'home']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'login_home'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,3 +43,19 @@ route::get('edit_product/{id}', [AdminController::class, 'edit_product'])->middl
 route::post('update_product/{id}', [AdminController::class, 'update_product'])->middleware(['auth', 'admin']);
 
 route::get('search_product', [AdminController::class, 'search_product'])->middleware(['auth', 'admin']);
+
+route::get('product_details/{id}', [HomeController::class, 'product_details']);
+
+route::get('add_to_cart/{id}', [HomeController::class, 'add_to_cart'])->middleware(['auth', 'verified']);
+
+route::get('my_cart', [HomeController::class, 'my_cart'])->middleware(['auth', 'verified']);
+
+route::delete('/cart_remove/{id}', [HomeController::class, 'cart_remove'])->middleware(['auth', 'verified']);
+
+route::post('/place_order', [HomeController::class, 'place_order'])->middleware(['auth', 'verified']);
+
+//Route header
+route::get('/shop', [HomeController::class, 'shop']);
+route::get('/why', [HomeController::class, 'why']);
+route::get('/testi', [HomeController::class, 'testi']);
+route::get('/contact', [HomeController::class, 'contact']);
