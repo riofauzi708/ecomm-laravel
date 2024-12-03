@@ -53,13 +53,7 @@
         <div class="page-header">
             <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="breadcrumb-list">
-                            <h1>View Product</h1>
-                        </div>
-                    </div>
-                </div>
+                <h2>Product List</h2>
 
                 <form class="d-flex" action="{{url('search_product')}}" method="get">
                     @csrf

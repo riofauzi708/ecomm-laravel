@@ -54,6 +54,8 @@ route::delete('/cart_remove/{id}', [HomeController::class, 'cart_remove'])->midd
 
 route::post('/place_order', [HomeController::class, 'place_order'])->middleware(['auth', 'verified']);
 
+route::get('view_order', [AdminController::class, 'view_order'])->middleware(['auth', 'admin']);
+
 //Route header
 route::get('/shop', [HomeController::class, 'shop']);
 route::get('/why', [HomeController::class, 'why']);

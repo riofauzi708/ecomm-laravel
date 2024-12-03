@@ -48,9 +48,7 @@
         <div class="page-header">
             <div class="container-fluid">
 
-                <h1 style="color: white;">
-                    Update Product
-                </h1>
+                <h2>Edit Product</h2>
 
                 <div class="div_deg">
                     <form action="{{url('update_product', $data->id)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(event)">

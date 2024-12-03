@@ -31,9 +31,7 @@
         <div class="page-header">
             <div class="container-fluid">
 
-                <h1 style="color: white;">
-                    Update Category
-                </h1>
+                <h2>Edit Category</h2>
 
                 <div class="div_deg">
 

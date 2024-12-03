@@ -54,9 +54,7 @@
     <div class="page-header">
       <div class="container-fluid">
 
-        <h1 style="color: white;">
-          Add Category
-        </h1>
+        <h2>Category</h2>
 
         <div class="div_deg">
 

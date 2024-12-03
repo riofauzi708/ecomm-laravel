@@ -36,6 +36,12 @@
           </li>
         </ul>
       </li>
+
+      <li class="{{ request()->is('view_order') ? 'active' : '' }}">
+        <a href="{{url('view_order')}}"> <i class="icon-grid"></i>
+          Orders
+        </a>
+      </li>
     </ul>
     </li>
 
