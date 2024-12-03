@@ -48,9 +48,7 @@
         <div class="page-header">
             <div class="container-fluid">
 
-                <h1 style="color: white;">
-                    Add Product
-                </h1>
+                <h2>Add Product</h2>
 
                 <div class="div_deg">
                     <form action="{{url('upload_product')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(event)">
