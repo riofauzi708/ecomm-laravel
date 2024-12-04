@@ -56,6 +56,12 @@ route::post('/place_order', [HomeController::class, 'place_order'])->middleware(
 
 route::get('view_order', [AdminController::class, 'view_order'])->middleware(['auth', 'admin']);
 
+route::get('on_the_way/{id}', [AdminController::class, 'on_the_way'])->middleware(['auth', 'admin']);
+
+route::get('delivered/{id}', [AdminController::class, 'delivered'])->middleware(['auth', 'admin']);
+
+route::get('in_progress/{id}', [AdminController::class, 'in_progress'])->middleware(['auth', 'admin']);
+
 //Route header
 route::get('/shop', [HomeController::class, 'shop']);
 route::get('/why', [HomeController::class, 'why']);

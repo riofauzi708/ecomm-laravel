@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     @include('admin.css')
@@ -33,12 +33,11 @@
 
         td {
             padding: 10px;
-            color: #BCBCBC;
+            color: #bcbcbc;
             font-size: 15px;
             border: 2px solid #22252a;
         }
 
-        /* Gaya umum untuk badge */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -50,38 +49,43 @@
             text-transform: capitalize;
         }
 
-        /* Menambahkan titik di depan teks */
         .badge::before {
             content: '•';
-            /* Menambahkan titik */
             margin-right: 8px;
-            /* Memberi jarak antara titik dan teks */
             font-size: 18px;
-            /* Ukuran titik */
         }
 
-        /* Badge untuk status "In Progress" (warna abu-abu) */
-        .status-in-progress {
+        .status-in-progress,
+        .btn-in-progress {
             background-color: #808080;
-            /* Abu-abu */
             border: 2px solid #6f6f6f;
-            /* Abu-abu lebih gelap untuk border */
         }
 
-        /* Badge untuk status "On Delivery" */
-        .status-on-delivery {
+        .status-on_the_way,
+        .btn-on-the-way {
             background-color: #ff9800;
-            /* Oranye */
             border: 2px solid #fb8c00;
-            /* Oranye lebih gelap untuk border */
         }
 
-        /* Badge untuk status "Delivered" */
-        .status-delivered {
+        .status-delivered,
+        .btn-delivered {
             background-color: #4caf50;
-            /* Hijau */
             border: 2px solid #388e3c;
-            /* Hijau lebih gelap untuk border */
+        }
+
+        /* Styling khusus tombol untuk konsistensi */
+        .btn {
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -93,52 +97,61 @@
     <div class="page-content">
         <div class="page-header">
             <div class="container-fluid">
-
                 <h2>Order List</h2>
-
                 <div class="div_deg">
                     <table class="table_deg">
-                        <tr>
-                            <th>Receiver Name</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                            <th>Status</th>
-                        </tr>
-                        @foreach($data as $data)
-                        <tr>
-                            <td>{{$data->receiver_name}}</td>
-                            <td>{{$data->receiver_phone}}</td>
-                            <td>{{$data->receiver_address}}</td>
-                            <td>{{$data->product->title}}</td>
-                            <td>$ {{ number_format($data->product->price, 0, ',', '.') }}</td>
-                            <td>
-                                <img src="{{ asset('products/'.$data->product->image) }}" width="100px" height="70px" alt="Product Image">
-                            </td>
-                            <td>
-                                <span class="badge status-{{ str_replace(' ', '-', strtolower($data->status)) }}">
-                                    {{$data->status}}
-                                </span>
-                            </td>
-
-                        </tr>
-                        @endforeach
+                        <thead>
+                            <tr>
+                                <th>Receiver Name</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($data as $data)
+                            <tr>
+                                <td>{{ $data->receiver_name }}</td>
+                                <td>{{ $data->receiver_phone }}</td>
+                                <td>{{ $data->receiver_address }}</td>
+                                <td>{{ $data->product->title }}</td>
+                                <td>$ {{ number_format($data->product->price, 0, ',', '.') }}</td>
+                                <td>
+                                    <img src="{{ asset('products/'.$data->product->image) }}" width="100" height="70" alt="Product Image">
+                                </td>
+                                <td>
+                                    <span class="badge status-{{ str_replace(' ', '_', strtolower($data->status)) }}">
+                                        {{ $data->status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-on-the-way mr-1" href="{{ url('on_the_way', $data->id) }}">Deliver</a>
+                                        <a class="btn btn-delivered mr-1" href="{{ url('delivered', $data->id) }}">Done</a>
+                                        <a class="btn btn-in-progress" href="{{ url('in_progress', $data->id) }}">Cancel</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"></script>
-    <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('admincss/vendor/jquery.cookie/jquery.cookie.js')}}"></script>
-    <script src="{{asset('admincss/vendor/chart.js/Chart.min.js')}}"></script>
-    <script src="{{asset('admincss/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
-    <script src="{{asset('admincss/js/charts-home.js')}}"></script>
-    <script src="{{asset('admincss/js/front.js')}}"></script>
+    <script src="{{ asset('admincss/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admincss/vendor/popper.js/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('admincss/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admincss/vendor/jquery.cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('admincss/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('admincss/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('admincss/js/charts-home.js') }}"></script>
+    <script src="{{ asset('admincss/js/front.js') }}"></script>
 </body>
 
 </html>

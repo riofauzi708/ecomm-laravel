@@ -59,7 +59,7 @@
                     @csrf
                     <input style="margin-left: 10px; margin-right: 10px" type="search" name="search" placeholder="Search Product" class="form-control">
 
-                    <input type="submit" value="Search" class="btn btn-primary">
+                    <input style="margin-right: 10px" type="submit" value="Search" class="btn btn-primary">
                 </form>
 
                 <div class="div_deg">
